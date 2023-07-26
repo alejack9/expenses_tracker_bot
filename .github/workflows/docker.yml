@@ -20,11 +20,13 @@ jobs:
         file: ./Docker/Dockerfile
         push: false
         tags: expensestrackerbot:latest
-        cache: enabled
-        outputs: type=docker,dest=/tmp/myimage.tar
+
+    - name: Save Image
+      run: |
+        docker save expensestrackerbot:latest > /tmp/expensestrackerbot.tar
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: myimage
-        path: /tmp/myimage.tar
+        name: expensestrackerbot
+        path: /tmp/expensestrackerbot.tar
