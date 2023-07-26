@@ -20,3 +20,10 @@ jobs:
         file: ./Docker/Dockerfile
         push: false
         tags: expensestrackerbot:latest
+        outputs: type=docker,dest=/tmp/expensestrackerbot-latest.tar
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: expensestrackerbot-latest
+          path: /tmp/expensestrackerbot-latest.tar
