@@ -20,6 +20,7 @@ jobs:
         file: ./Docker/Dockerfile
         push: false
         tags: expensestrackerbot:latest
+        cache: enabled
         outputs: type=docker,dest=/tmp/myimage.tar
 
     - name: Upload artifact
