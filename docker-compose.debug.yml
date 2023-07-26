@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  expensestrackbot:
+    image: expensestrackbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: [ "python", "main.py", "--log=DEBUG" ]
+    ports:
+      - 5678:5678
+    environment:
+      - BOT_TOKEN
