@@ -4,7 +4,7 @@ services:
   expensestrackbot:
     image: expensestrackbot
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./..
+      dockerfile: ./Docker/Dockerfile
     environment:
       - BOT_TOKEN

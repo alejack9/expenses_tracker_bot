@@ -4,8 +4,8 @@ services:
   expensestrackbot:
     image: expensestrackbot
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./..
+      dockerfile: ./Docker/Dockerfile
     command: [ "python", "main.py", "--log=DEBUG" ]
     ports:
       - 5678:5678
