@@ -23,10 +23,10 @@ jobs:
 
     - name: Save Image
       run: |
-        docker save expensestrackerbot:latest > /tmp/expensestrackerbot.tar
+        docker save expensestrackerbot:latest | gzip > /tmp/expensestrackerbot.tgz
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: expensestrackerbot
-        path: /tmp/expensestrackerbot.tar
+        path: /tmp/expensestrackerbot.tgz
