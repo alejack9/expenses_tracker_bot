@@ -1,6 +1,16 @@
 version: '3.4'
 
 services:
+  db:
+    image: postgres:alpine3.18
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+      - ../db-scripts:/docker-entrypoint-initdb.d
   expensestrackbot:
     image: expensestrackbot
     build:
@@ -8,3 +18,11 @@ services:
       dockerfile: ./Docker/Dockerfile
     environment:
       - BOT_TOKEN
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    depends_on:
+      - db
+
+volumes:
+  db-data:

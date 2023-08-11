@@ -1,6 +1,22 @@
 version: '3.4'
 
 services:
+  db:
+    image: postgres:alpine3.18
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data-debug:/var/lib/postgresql/data/pgdata
+      - ../db-scripts:/docker-entrypoint-initdb.d
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
   expensestrackbot:
     image: expensestrackbot
     build:
@@ -9,3 +25,11 @@ services:
     command: [ "python", "main.py", "--log=DEBUG" ]
     environment:
       - BOT_TOKEN
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    depends_on:
+      - db
+
+volumes:
+  db-data-debug:
