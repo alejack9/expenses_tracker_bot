@@ -29,22 +29,15 @@ jobs:
       run: |
         docker save expensestrackerbot:latest | gzip > /tmp/expensestrackerbot.tgz
 
+    - name: Run docker-compose build
+      run: docker-compose -f Docker/docker-compose.test.yml build
+
+    - name: Run docker-compose test
+      run: docker-compose -f Docker/docker-compose.test.yml run test
+
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: expensestrackerbot
         path: /tmp/expensestrackerbot.tgz
 
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check Out Repository
-      uses: actions/checkout@v2
-
-    - name: Run docker-compose test
-      run: docker-compose -f Docker/docker-compose.test.yml build
-
-    steps:
-    - name: Run docker-compose test
-      run: docker-compose -f Docker/docker-compose.test.yml run test
