@@ -9,20 +9,14 @@ services:
       - POSTGRES_DB=postgres
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - db-data-debug:/var/lib/postgresql/data/pgdata
+      - db-data-tests:/var/lib/postgresql/data/pgdata
       - ../db-scripts:/docker-entrypoint-initdb.d
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
   expensestrackbot:
     image: expensestrackbot
     build:
       context: ./..
       dockerfile: ./Docker/Dockerfile
-    command: [ "python", "main.py", "--log=DEBUG" ]
+    command: [ "python", "tests/test_db.py", "-v" ]
     environment:
       - BOT_TOKEN
       - POSTGRES_HOST=db
@@ -33,4 +27,4 @@ services:
       - db
 
 volumes:
-  db-data-debug:
+  db-data-tests:

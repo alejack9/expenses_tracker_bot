@@ -2,7 +2,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def record_expense(bot, message):
+def record_expense(bot, message, conn):
     expense_data = message.text.strip().split()
     if len(expense_data) != 2:
         bot.reply_to(message, "Please enter expenses in the format '{how_much} {what_I_bought}'.")
