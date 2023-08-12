@@ -3,7 +3,11 @@ name: Build Docker Image
 on:
   push:
     branches:
-      - main  # Adjust the branch name if needed
+      - main
+
+  pull_request:
+    branches:
+    - main
 
 jobs:
   build:
@@ -30,3 +34,17 @@ jobs:
       with:
         name: expensestrackerbot
         path: /tmp/expensestrackerbot.tgz
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out Repository
+      uses: actions/checkout@v2
+
+    - name: Run docker-compose test
+      run: docker-compose -f Docker/docker-compose.test.yml build
+
+    steps:
+    - name: Run docker-compose test
+      run: docker-compose -f Docker/docker-compose.test.yml run test

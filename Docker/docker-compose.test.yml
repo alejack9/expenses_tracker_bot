@@ -11,7 +11,7 @@ services:
     volumes:
       - db-data-tests:/var/lib/postgresql/data/pgdata
       - ../db-scripts:/docker-entrypoint-initdb.d
-  expensestrackbot:
+  test:
     image: expensestrackbot
     build:
       context: ./..
